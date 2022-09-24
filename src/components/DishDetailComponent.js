@@ -3,22 +3,26 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle,
     Breadcrumb, BreadcrumbItem, Button,
     Modal, ModalHeader, ModalBody, Label, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm } from 'react-redux-form';
+import { Control, Errors, LocalForm } from 'react-redux-form';
+
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !(val) || (val.length<= len);
+const minLength = (len) => (val) => val && (val.length >= len);
 
 class CommentForm extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            isModalOpen: false
+            isModalFormCommentFormOpen: false
         };
-        this.toggleModal = this.toggleModal.bind(this);
+        this.toggleModalFormCommentForm = this.toggleModalFormCommentForm.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    toggleModal() {
+    toggleModalFormCommentForm() {
         this.setState({
-            isModalOpen: !this.state.isModalOpen
+            isModalFormCommentFormOpen: !this.state.isModalFormCommentFormOpen
         });
     }
 
@@ -30,11 +34,11 @@ class CommentForm extends Component {
     render() {
         return(
             <React.Fragment>
-                <Button outline onClick={this.toggleModal}>
+                <Button outline onClick={this.toggleModalFormCommentForm}>
                     <span className="fa fa-pencil fa-lg"></span> Comment
                 </Button>
-                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                    <ModalHeader toggle={this.toggleModal}><span style={{fontWeight: 'bold'}}>Submit Comment</span></ModalHeader>
+                <Modal isOpen={this.state.isModalFormCommentFormOpen} toggle={this.toggleModalFormCommentForm}>
+                    <ModalHeader toggle={this.toggleModalFormCommentForm}><span style={{fontWeight: 'bold'}}>Submit Comment</span></ModalHeader>
                     <ModalBody>
                         <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
@@ -55,6 +59,19 @@ class CommentForm extends Component {
                                     <Control.text model=".author" id="author" name="author"
                                         placeholder="Your Name"
                                         className="form-control"
+                                        validators={{
+                                            required, minLength: minLength(3), maxLength: maxLength(15)
+                                        }}
+                                    />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".author"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be greater than 2 characters',
+                                            maxLength: 'Must be 15 characters or less'
+                                        }}
                                     />
                                 </Col>
                             </Row>
