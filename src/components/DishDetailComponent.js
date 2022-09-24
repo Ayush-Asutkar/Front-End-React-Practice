@@ -1,6 +1,25 @@
-import React from "react";
+import React, { Component } from "react";
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
+
+class CommentForm extends Component {
+    // constructor(props) {
+    //     super(props);
+
+    //     this.state = {
+            
+    //     }
+    // }
+
+    render() {
+        return(
+            <Button outline>
+                <span className="fa fa-pencil fa-lg"></span> Comment
+            </Button>
+        );
+    }
+}
+
 
 function RenderDish({dish}) {
     if(dish == null) {
@@ -20,16 +39,6 @@ function RenderDish({dish}) {
             </div>
         );
     }
-}
-
-function RenderSubmitComment() {
-    return(
-        <div>
-            <Button outline>
-                <span className="fa fa-pencil fa-lg"></span> Submit Comment
-            </Button>
-        </div>
-    );
 }
 
 function RenderComments({comments}) {
@@ -58,7 +67,7 @@ function RenderComments({comments}) {
             <ul className='list-unstyled'>
                 {currentComment}
             </ul>
-            <RenderSubmitComment />
+            <CommentForm />
         </div>
     );
 }
