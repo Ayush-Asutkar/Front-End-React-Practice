@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem,  Button, Label, Row, Col } from 'reactstrap';
+import { 
+    Breadcrumb, 
+    BreadcrumbItem,  
+    Button, 
+    Label, 
+    Row, 
+    Col,
+    FormGroup
+} from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, Form, Errors, actions } from 'react-redux-form';
+import { 
+    Control, 
+    Form, 
+    Errors,
+    actions
+} from 'react-redux-form';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -18,8 +31,11 @@ class Contact extends Component {
     }
 
     handleSumbit(values) {
-        console.log("Current state is: " + JSON.stringify(values));
-        alert("Current state is: " + JSON.stringify(values));
+        //console.log("Current state is: " + JSON.stringify(values));
+        //alert("Current state is: " + JSON.stringify(values));
+        //this.props.resetFeedbackForm();
+
+        this.props.postFeedback(values);
         this.props.resetFeedbackForm();
     }
 
@@ -28,7 +44,9 @@ class Contact extends Component {
             <div className="container">
                 <div className="row">
                     <Breadcrumb>
-                        <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem>
+                            <Link to="/home">Home</Link>
+                        </BreadcrumbItem>
                         <BreadcrumbItem active>Contact Us</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">
