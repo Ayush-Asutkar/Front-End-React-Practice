@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card, 
     CardImg, 
-    CardImgOverlay, 
+    //CardImgOverlay, 
     CardText, 
     CardBody, 
     CardTitle,
@@ -43,7 +43,7 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        this.toggleModalFormCommentForm;
+        this.toggleModalFormCommentForm();
         this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
